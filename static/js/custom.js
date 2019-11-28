@@ -39,22 +39,19 @@
     enableHighAccuracy: true
   })
 
-  // 编写自定义函数,创建标注
-  function addMarker(point, label) {
-    var myIcon = new BMap.Icon("/static/img/marker.png", new BMap.Size(32, 32));
-    var marker = new BMap.Marker(point, {
-      icon: myIcon
-    });
-    map.addOverlay(marker);
-    marker.setLabel(label);
-  }
-
   function addEntityList() {
     // 编写自定义函数,创建标注
-    function addMarker(point, label) {
-      var marker = new BMap.Marker(point);
+    // "/static/img/contact.png"
+    // /static/img / rescue.png "
+    function addMarker(point, icon, label) {
+      var myIcon = new BMap.Icon(icon, new BMap.Size(32, 32));
+      var marker = new BMap.Marker(point, {
+        icon: myIcon
+      });
       map.addOverlay(marker);
-      marker.setLabel(label);
+      if (label) {
+        marker.setLabel(label);
+      }
     }
     // 随机向地图添加25个标注
     var bounds = map.getBounds();
@@ -75,7 +72,12 @@
         fontFamily: "微软雅黑",
         border: 'none'
       });
-      addMarker(point, label);
+      addMarker(point, "/static/img/contact.png", label);
+    }
+
+    for (var i = 0; i < 5; i++) {
+      var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
+      addMarker(point, "/static/img/rescue.png");
     }
   }
   
