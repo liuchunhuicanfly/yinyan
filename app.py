@@ -15,6 +15,11 @@ bmap_point_add_uri = 'http://yingyan.baidu.com/api/v3/track/addpoint'
 def index_page():
     return app.send_static_file('index.html')
 
+
+@app.route('/login')
+def login_page():
+    return app.send_static_file('login.html')
+
 @app.route('/add_entity')
 def add_entity_page():
     return app.send_static_file('add_entity.html')
