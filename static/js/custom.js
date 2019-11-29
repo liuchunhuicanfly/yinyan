@@ -43,7 +43,7 @@
     // 编写自定义函数,创建标注
     // "/static/img/contact.png"
     // /static/img / rescue.png "
-    function addMarker(point, icon, label) {
+    function addMarker(point, icon, label, name) {
       var myIcon = new BMap.Icon(icon, new BMap.Size(32, 32));
       var marker = new BMap.Marker(point, {
         icon: myIcon
@@ -52,7 +52,23 @@
       if (label) {
         marker.setLabel(label);
       }
+      if (name) {
+        var opts = {
+          width: 50, // 信息窗口宽度
+          height: 50, // 信息窗口高度
+          title: name || '', // 信息窗口标题
+        }
+        var content = '<ul class="info">' +
+          '<li><a>到这里去</a></li>' +
+          '<li><a>立即联系</a></li>' +
+          '</ul>'
+        var infoWindow = new BMap.InfoWindow(content, opts); // 创建信息窗口对象 
+        marker.addEventListener("click", function () {
+          map.openInfoWindow(infoWindow, point); //开启信息窗口
+        });
+      }
     }
+
     // 随机向地图添加25个标注
     var bounds = map.getBounds();
     var sw = bounds.getSouthWest();
@@ -70,14 +86,27 @@
         height: "20px",
         lineHeight: "20px",
         fontFamily: "微软雅黑",
-        border: 'none'
+        border: 'none',
+        padding: '0 5px'
       });
-      addMarker(point, "/static/img/contact.png", label);
+      addMarker(point, "/static/img/contact.png", label, nameList[i]);
     }
 
     for (var i = 0; i < 5; i++) {
       var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
-      addMarker(point, "/static/img/rescue.png");
+      var label = new BMap.Label('救援站', {
+        offset: new BMap.Size(20, -10)
+      });
+      label.setStyle({
+        color: "#4a4a4a",
+        fontSize: "12px",
+        height: "20px",
+        lineHeight: "20px",
+        fontFamily: "微软雅黑",
+        border: 'none',
+        padding: '0 5px'
+      });
+      addMarker(point, "/static/img/rescue.png", label, '救援站');
     }
   }
   
