@@ -16,9 +16,13 @@ def index_page():
     return app.send_static_file('index.html')
 
 
-@app.route('/login')
-def login_page():
-    return app.send_static_file('login.html')
+@app.route('/settings')
+def settings_page():
+    return app.send_static_file('settings.html')
+
+@app.route('/auth')
+def auth_page():
+    return app.send_static_file('auth.html')
 
 @app.route('/add_entity')
 def add_entity_page():
