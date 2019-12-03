@@ -30,6 +30,8 @@
       var mk = new BMap.Marker(r.point);
       map.addOverlay(mk);
       map.panTo(r.point);
+      mk.disableMassClear();
+      mk.setTitle('0,1,2,3');
       addEntityList();
       console.log('您的位置：' + r.point.lng + ',' + r.point.lat);
     } else {
@@ -43,12 +45,13 @@
     // 编写自定义函数,创建标注
     // "/static/img/contact.png"
     // /static/img / rescue.png "
-    function addMarker(point, icon, label, name) {
+    function addMarker(point, icon, type,  label, name) {
       var myIcon = new BMap.Icon(icon, new BMap.Size(32, 32));
       var marker = new BMap.Marker(point, {
         icon: myIcon
       });
       map.addOverlay(marker);
+      marker.setTitle(type);
       if (label) {
         marker.setLabel(label);
       }
@@ -89,7 +92,7 @@
         border: 'none',
         padding: '0 5px'
       });
-      addMarker(point, "/static/img/contact.png", label, nameList[i]);
+      addMarker(point, "/static/img/contact.png", i % 2 === 0 ? '0,1' : '0,3', label, nameList[i]);
     }
 
     for (var i = 0; i < 5; i++) {
@@ -106,8 +109,90 @@
         border: 'none',
         padding: '0 5px'
       });
-      addMarker(point, "/static/img/rescue.png", label, '救援站');
+      addMarker(point, "/static/img/rescue.png", '0,2' , label, '救援站');
     }
   }
+
+
+  function markFilter(_type) {
+    var type = _type || '0';
+    var allOverlay = map.getOverlays();
+    for (var i = 0; i < allOverlay.length - 1; i++) {
+      var current = allOverlay[i];
+      if (current.toString() == "[object Marker]") {
+        current.hide();
+        const acceptType = current.getTitle().split(',');
+        if (acceptType.indexOf(type) > -1 ) {
+          current.show();
+        }
+      }
+      
+      // if (allOverlay[i].getLabel().content == "我是id=1") {
+      //   map.removeOverlay(allOverlay[i]);
+      //   return false;
+      // }
+    }
+  }
+
+
+  // 添加自定义filter控件
+  function FilterControl() {
+    // 设置默认停靠位置和偏移量  
+    this.defaultAnchor = BMAP_ANCHOR_BOTTOM_RIGHT;
+    this.defaultOffset = new BMap.Size(10, 10);
+  }
+
+  FilterControl.prototype = new BMap.Control();
+
+  FilterControl.prototype.initialize = function (map) {
+    // 创建一个DOM元素  
+    var temp = '<ul class="mui-table-view mui-table-view-radio control-panel">' +
+      '<li class="mui-table-view-cell mui-selected">' +
+      '<a class="mui-navigate-right" title="0">' +
+          '所有' +
+        '</a>' +
+      '</li>' +
+      '<li class="mui-table-view-cell">' +
+        '<a class="mui-navigate-right" title="1">' +
+          '好友' +
+        '</a>' +
+      '</li>' +
+      '<li class="mui-table-view-cell">' +
+        '<a class="mui-navigate-right" title="2">' +
+          '求助站' +
+        '</a>' +
+      '</li>' +
+      '<li class="mui-table-view-cell">' +
+        '<a class="mui-navigate-right" title="3">' +
+          '求助人' +
+        '</a>' +
+      '</li>' +
+    '</ul>'
+    var div = document.createElement("div");
+    div.innerHTML = temp;
+    // 添加文字说明
+    // 设置样式    
+    div.style.cursor = "pointer";
+    div.style.border = "1px solid gray";
+    div.style.backgroundColor = "white";
+    // 绑定事件，点击一次放大两级
+    div.addEventListener('tap', function(e) {
+       var e = e || window.event;
+       var target = e.target || e.srcElement;
+       if (target.nodeName.toLowerCase() === 'a') {
+         markFilter(target.title);
+       }
+       
+    })
+    // 添加DOM元素到地图中   
+    map.getContainer().appendChild(div);
+    // 将DOM元素返回  
+    return div;
+  }
+
+  // 创建控件实例    
+  var myFilterCtrl = new FilterControl();
+  // 添加到地图当中    
+  map.addControl(myFilterCtrl);
   
 })();

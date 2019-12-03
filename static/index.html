@@ -28,12 +28,49 @@
       font-size: 12px;
       line-height: 1.25rem;
     }
+
+    .control-panel.mui-table-view-radio {
+      width: 95px;
+      font-size: 12px;
+    }
+
+    .control-panel.mui-table-view-radio .mui-table-view-cell {
+      padding: 6px 10px;
+      adding-right: 34px;
+    }
+    .control-panel.mui-table-view-radio .mui-table-view-cell .mui-navigate-right:after {
+      font-size: 20px;
+      right: 56px;
+    }
+    .control-panel.mui-table-view-radio .mui-table-view-cell:after {
+      left: 0;
+    }
   </style>
 </head>
 
 <body>
-
-
+<!-- <ul class="mui-table-view mui-table-view-radio control-panel">
+  <li class="mui-table-view-cell mui-selected">
+    <a class="mui-navigate-right">
+      显示所有
+    </a>
+  </li>
+  <li class="mui-table-view-cell">
+    <a class="mui-navigate-right">
+      显示好友
+    </a>
+  </li>
+  <li class="mui-table-view-cell">
+    <a class="mui-navigate-right">
+      显示求助站
+    </a>
+  </li>
+  <li class="mui-table-view-cell">
+    <a class="mui-navigate-right">
+      显示求助人
+    </a>
+  </li>
+</ul> -->
   <!-- 侧滑导航根容器 -->
   <div class="mui-off-canvas-wrap mui-draggable">
     <!-- 菜单容器 -->
@@ -85,12 +122,10 @@
         $('.mui-off-canvas-wrap').offCanvas('show');
       });
       doc.getElementById('goToAuth').addEventListener('tap', function() {
-        console.log(111);
-        window.location.href = '/auth'
+        window.location.href = '/auth';
       });
       doc.getElementById('goToSettings').addEventListener('tap', function() {
-        console.log(111);
-        window.location.href = '/settings'
+        window.location.href = '/settings';
       })
     })(mui, window.document)
     
