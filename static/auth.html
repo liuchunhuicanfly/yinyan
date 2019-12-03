@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
   <title></title>
   <link href="/static/css/mui/mui.min.css" rel="stylesheet" />
+  <link href="/static/css/mui/mui.picker.css" rel="stylesheet" />
+  <link href="/static/css/mui/mui.dtpicker.css" rel="stylesheet" />
+  <link href="/static/css/mui/mui.poppicker.css" rel="stylesheet" />
   <style>
     html,
     body {
@@ -209,7 +212,7 @@
   </div>
   <!--页面主结构结束-->
   <!--单页面开始-->
-  <div id="setting" class="mui-page">
+  <div id="auth" class="mui-page">
     <!--页面标题栏开始-->
     <div class="mui-navbar-inner mui-bar mui-bar-nav">
       <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
@@ -226,30 +229,53 @@
             <li class="mui-table-view-cell">
               <div class="mui-input-row">
                 <label>姓名</label>
-                <input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入姓名">
+                <input id='name' type="text" class="mui-input-clear mui-input" placeholder="">
               </div>
             </li>
             <li class="mui-table-view-cell">
-              <a d='showUserPicker'class="mui-navigate-right">性别</a>
+              <a id='showGenderPicker'class="mui-navigate-right">
+                <label style="width: 35%; display: inline-block;">性别</label>
+                <span id='genderResult'></span>
+              </a>
+            </li>
+            <li class="mui-table-view-cell">
+              <a id='showBirthPicker' class="mui-navigate-right">
+                <label style="width: 35%; display: inline-block;">出生日期</label>
+                <span id='birthResult'></span>
+              </a>
             </li>
             <li class="mui-table-view-cell">
               <div class="mui-input-row">
-                <label>电话</label>
-                <input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入联系方式">
+                <label>身份证号码</label>
+                <input id='idCard' type="text" class="mui-input-clear mui-input" placeholder="">
+              </div>
+            </li>
+            <li class="mui-table-view-cell">
+              <a id='showAddressPicker' class="mui-navigate-right">
+                <label style="width: 35%; display: inline-block;">居住地址</label>
+                <span id='addressResult'></span>
+              </a>
+            </li>
+            <li class="mui-table-view-cell">
+              <div class="mui-input-row">
+                <label>联系方式</label>
+                <input id='tel' type="tel" class="mui-input-clear mui-input" placeholder="">
               </div>
             </li>
           </ul>
-          <ul class="mui-table-view mui-table-view-chevron">
-            <li class="mui-table-view-cell">
-              <a href="#notifications" class="mui-navigate-right">新消息通知</a>
-            </li>
-            <li class="mui-table-view-cell">
-              <a href="#general" class="mui-navigate-right">通用</a>
+
+          <ul class="mui-table-view">
+            <li class="mui-table-view-cell mui-media">
+              <img src="/static/img/upload.png" style="width: 90px;">
+              <div class="mui-media-body">
+                <p class='mui-ellipsis'>上传认证资料</p>
+              </div>
             </li>
           </ul>
+
           <ul class="mui-table-view">
             <li class="mui-table-view-cell" style="text-align: center;">
-              <a>开始认证</a>
+              <a style="background: lightcoral;color: #fff;">开始认证</a>
             </li>
           </ul>
         </div>
@@ -298,146 +324,30 @@
       </div>
     </div>
   </div>
-  <div id="notifications" class="mui-page">
-    <div class="mui-navbar-inner mui-bar mui-bar-nav">
-      <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
-        <span class="mui-icon mui-icon-left-nav"></span>设置
-      </button>
-      <h1 class="mui-center mui-title">新消息通知</h1>
-    </div>
-    <div class="mui-page-content">
-      <div class="mui-scroll-wrapper">
-        <div class="mui-scroll">
-          <ul class="mui-table-view">
-            <li class="mui-table-view-cell">
-              <a>接收新消息通知<span class="mui-pull-right">已开启</span></a>
-            </li>
-          </ul>
-          <ul class="mui-table-view">
-            <li class="mui-table-view-cell">
-              通知显示消息详情
-              <div class="mui-switch mui-active mui-switch-mini">
-                <div class="mui-switch-handle"></div>
-              </div>
-            </li>
-          </ul>
-          <div class="mui-content-padded">
-            <p>若关闭，当收到新消息时，通知提示将不显示发信人和内容摘要</p>
-          </div>
-
-          <ul class="mui-table-view mui-table-view-chevron">
-            <li class="mui-table-view-cell">
-              <a href="#notifications_disturb" class="mui-navigate-right">功能消息免打扰</a>
-            </li>
-          </ul>
-          <div class="mui-content-padded">
-            <p>设置系统功能消息提示声音和震动的时段</p>
-          </div>
-          <ul class="mui-table-view">
-            <li class="mui-table-view-cell">
-              <a>接收新消息通知<span class="mui-pull-right">已开启</span></a>
-            </li>
-          </ul>
-          <ul class="mui-table-view">
-            <li class="mui-table-view-cell">
-              声音
-              <div class="mui-switch mui-active mui-switch-mini">
-                <div class="mui-switch-handle"></div>
-              </div>
-            </li>
-            <li class="mui-table-view-cell">
-              震动
-              <div class="mui-switch mui-active mui-switch-mini">
-                <div class="mui-switch-handle"></div>
-              </div>
-            </li>
-          </ul>
-          <div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="notifications_disturb" class="mui-page">
-    <div class="mui-navbar-inner mui-bar mui-bar-nav">
-      <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
-        <span class="mui-icon mui-icon-left-nav"></span>新消息通知
-      </button>
-      <h1 class="mui-center mui-title">功能消息免打扰</h1>
-    </div>
-    <div class="mui-page-content">
-      <div class="mui-scroll-wrapper">
-        <div class="mui-scroll">
-          <ul class="mui-table-view mui-table-view-radio">
-            <li class="mui-table-view-cell">
-              <a class="mui-navigate-right">开启</a>
-            </li>
-            <li class="mui-table-view-cell">
-              <a class="mui-navigate-right">只在夜间开启</a>
-            </li>
-            <li class="mui-table-view-cell">
-              <a class="mui-navigate-right">关闭</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="general" class="mui-page">
-    <div class="mui-navbar-inner mui-bar mui-bar-nav">
-      <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
-        <span class="mui-icon mui-icon-left-nav"></span>设置
-      </button>
-      <h1 class="mui-center mui-title">通用</h1>
-    </div>
-    <div class="mui-page-content">
-      <div class="mui-scroll-wrapper">
-        <div class="mui-scroll">
-          <ul class="mui-table-view">
-            <li class="mui-table-view-cell">
-              多语言
-            </li>
-          </ul>
-
-          <ul class="mui-table-view">
-            <li class="mui-table-view-cell">
-              听筒模式
-              <div class="mui-switch mui-switch-mini">
-                <div class="mui-switch-handle"></div>
-              </div>
-            </li>
-          </ul>
-          <ul class="mui-table-view">
-            <li class="mui-table-view-cell">
-              功能
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <script src="/static/js/mui/mui.min.js"></script>
   <script src="/static/js/mui/mui.view.js "></script>
+  <script src="/static/js/mui/mui.picker.js"></script>
+  <script src="/static/js/mui/mui.dtpicker.js"></script>
+  <script src="/static/js/mui/mui.poppicker.js"></script>
+  <script src="/static/js/mui/city.data-3.js"></script>
   <script>
-    mui.init();
-    //初始化单页view
-    var viewApi = mui('#app').view({
-      defaultPage: '#setting'
-    });
-    //初始化单页的区域滚动
-    mui('.mui-scroll-wrapper').scroll();
+    
+    (function ($, doc) {
+      $.init();
+      //初始化单页view
+      var viewApi = $('#app').view({
+        defaultPage: '#auth'
+      });
+      //初始化单页的区域滚动
+      $('.mui-scroll-wrapper').scroll();
 
 
-    var view = viewApi.view;
-    (function ($) {
+      var view = viewApi.view;
       //处理view的后退与webview后退
       var oldBack = $.back;
       $.back = function () {
-        if (viewApi.canBack()) { //如果view可以后退，则执行view的后退
-          viewApi.back();
-        } else { //执行webview后退
-          oldBack();
-        }
+        window.location.href = '/';
       };
       //监听页面切换事件方案1,通过view元素监听所有页面切换事件，目前提供pageBeforeShow|pageShow|pageBeforeBack|pageBack四种事件(before事件为动画开始前触发)
       //第一个参数为事件名称，第二个参数为事件回调，其中e.detail.page为当前页面的html对象
@@ -454,49 +364,63 @@
         //				console.log(e.detail.page.id + ' back');
       });
 
+      var _getParam = function (obj, param) {
+        return obj[param] || '';
+      };
+
       // 性别选择
-      var userPicker = new $.PopPicker();
-      userPicker.setData([{
-        value: 'ywj',
-        text: '董事长 叶文洁'
+      var genderPicker = new $.PopPicker();
+      genderPicker.setData([{
+        value: 'man',
+        text: '男'
       }, {
-        value: 'aaa',
-        text: '总经理 艾AA'
-      }, {
-        value: 'lj',
-        text: '罗辑'
-      }, {
-        value: 'ymt',
-        text: '云天明'
-      }, {
-        value: 'shq',
-        text: '史强'
-      }, {
-        value: 'zhbh',
-        text: '章北海'
-      }, {
-        value: 'zhy',
-        text: '庄颜'
-      }, {
-        value: 'gyf',
-        text: '关一帆'
-      }, {
-        value: 'zhz',
-        text: '智子'
-      }, {
-        value: 'gezh',
-        text: '歌者'
+        value: 'woman',
+        text: '女'
       }]);
-      var showUserPickerButton = doc.getElementById('showUserPicker');
-      var userResult = doc.getElementById('userResult');
+      var showUserPickerButton = doc.getElementById('showGenderPicker');
+      var genderResult = doc.getElementById('genderResult');
       showUserPickerButton.addEventListener('tap', function (event) {
-        userPicker.show(function (items) {
-          userResult.innerText = JSON.stringify(items[0]);
+        console.log(event);
+        genderPicker.show(function (items) {
+          genderResult.innerText = items[0].text;
           //返回 false 可以阻止选择框的关闭
           //return false;
         });
       }, false);
-    })(mui);
+
+      // 出生日期选择
+      var birthPicker = new $.DtPicker({
+        type: 'date',
+        beginYear: 1900
+      });
+      var showBirthPickerButton = doc.getElementById('showBirthPicker');
+      var birthResult = doc.getElementById('birthResult');
+      showBirthPickerButton.addEventListener('tap', function (event) {
+        birthPicker.show(function (items) {
+          console.log(items);
+          birthResult.innerText = items.text;
+          //返回 false 可以阻止选择框的关闭
+          //return false;
+        });
+      }, false);
+
+      // 居住地址选择
+      var addressPicker = new $.PopPicker({
+        layer: 3
+      });
+      addressPicker.setData(cityData3);
+      var showCityPickerButton = doc.getElementById('showAddressPicker');
+      var cityResult = doc.getElementById('addressResult');
+      showCityPickerButton.addEventListener('tap', function (event) {
+        addressPicker.show(function (items) {
+          cityResult.innerText = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
+          //返回 false 可以阻止选择框的关闭
+          //return false;
+        });
+      }, false);
+
+
+    })(mui, document);
 
   </script>
 </body>
